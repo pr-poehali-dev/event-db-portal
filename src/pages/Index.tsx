@@ -4,7 +4,7 @@ import Icon from "@/components/ui/icon";
 const LOGO_URL = "https://cdn.poehali.dev/files/0f446c8c-791b-4f0d-bb88-2afc904bc524.png";
 const QR_URL = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/07ba012d-2388-4be5-8e24-0f4888503674.png";
 const HERO_IMG = "https://cdn.poehali.dev/files/8b0bed1e-7037-45e3-aae5-134310dfd1b9.png";
-const HALL_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/files/ef961d63-4316-4671-a62e-ae8a8fb754fd.jpg";
+const HALL_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/8e040385-93b6-48d6-8b8c-8a140ed7a992.png";
 const DANCE_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/files/828b25cc-0d12-47cb-b02c-d45c80adcca7.jpg";
 
 type Section = "home" | "events" | "about" | "gallery" | "contacts";
@@ -54,23 +54,20 @@ const Badge = ({ children, color = "red" }: { children: React.ReactNode; color?:
 const HomeSection = ({ onNavigate }: { onNavigate: (s: Section) => void }) => (
   <div>
     {/* Hero */}
-    <div className="relative h-[80vh] min-h-[560px] overflow-hidden">
-      <img src={HERO_IMG} alt="Дворец культуры им. И.П. Романенко" className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-[#0f0c0a]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0f0c0a] via-transparent to-transparent" />
+    <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
+      <img src={HERO_IMG} alt="Дворец культуры" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0f0c0a]" />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
         <div className="animate-fade-in-up">
-          <div className="bg-white rounded-sm p-4 md:p-6 inline-block shadow-2xl shadow-red-900/40">
-            <img
-              src={LOGO_URL}
-              alt="Дворец культуры им. И.П. Романенко, г. Сысерть"
-              className="w-[260px] md:w-[360px] h-auto"
-            />
-          </div>
-          <div className="mt-6">
-            <GoldDivider />
-          </div>
-          <p className="text-white/80 text-sm md:text-base tracking-widest uppercase mt-4">Свердловская область · Официальный сайт</p>
+          <p className="text-yellow-500/80 text-sm tracking-[0.3em] uppercase mb-3 font-light">МБУК г. Сысерть</p>
+          <h1 className="font-['Cormorant_Garamond'] text-5xl md:text-7xl font-bold text-white leading-tight mb-2">
+            Дворец культуры
+          </h1>
+          <p className="font-['Cormorant_Garamond'] text-2xl md:text-3xl font-light italic text-yellow-400/90 mb-6">
+            имени И.П. Романенко
+          </p>
+          <GoldDivider />
+          <p className="text-white/60 text-sm tracking-widest uppercase mt-4">г. Сысерть, Свердловская область</p>
         </div>
         <div className="flex gap-4 mt-8 animate-fade-in-up delay-300">
           <button
@@ -227,7 +224,7 @@ const EventsSection = () => {
       <div className="mt-8 p-4 border border-yellow-600/15 rounded-sm bg-yellow-900/5 animate-fade-in-up delay-300">
         <div className="flex items-center gap-2 text-yellow-500/70 text-sm">
           <Icon name="Info" size={14} />
-          <span>Данные из официального календарного плана на декабрь 2025 года. Расписание может меняться — уточняйте по телефону.</span>
+          <span>Данные из официального календарного плана на декабрь 2025 года.</span>
         </div>
       </div>
     </div>
@@ -241,11 +238,11 @@ const AboutSection = () => (
       <h2 className="font-['Cormorant_Garamond'] text-4xl text-white/90">Об учреждении</h2>
       <GoldDivider />
     </div>
-    <div className="grid md:grid-cols-2 gap-10 items-center mb-14">
+    <div className="grid md:grid-cols-2 gap-10 items-center">
       <div className="animate-fade-in-up delay-100">
         <div className="relative rounded-sm overflow-hidden">
-          <img src={HALL_IMG} alt="Концертный зал" className="w-full h-72 object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          <img src={HALL_IMG} alt="Концертный зал ДК им. И.П. Романенко" className="w-full h-80 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
           <div className="corner-tl" />
           <div className="corner-br" />
         </div>
@@ -259,45 +256,6 @@ const AboutSection = () => (
         <p className="text-white/60 leading-relaxed text-sm">
           В стенах Дворца культуры работают студии танца, вокала, театра и народного творчества. Ежегодно учреждение принимает тысячи зрителей на культурных событиях различного масштаба — от камерных концертов до городских праздников.
         </p>
-      </div>
-    </div>
-
-    {/* Stats */}
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14">
-      {[
-        { num: "5", label: "Концертных залов" },
-        { num: "20+", label: "Творческих коллективов" },
-        { num: "300+", label: "Мероприятий в год" },
-        { num: "10 000+", label: "Зрителей ежегодно" },
-      ].map((s, i) => (
-        <div key={i} className={`event-card rounded-sm p-5 text-center bg-white/[0.03] animate-fade-in-up delay-${(i + 3) * 100}`}>
-          <div className="font-['Cormorant_Garamond'] text-3xl text-yellow-400 mb-1">{s.num}</div>
-          <div className="text-white/40 text-xs">{s.label}</div>
-        </div>
-      ))}
-    </div>
-
-    {/* Halls */}
-    <div className="animate-fade-in-up delay-400">
-      <h3 className="font-['Cormorant_Garamond'] text-2xl text-white/90 mb-6 text-center">Площадки учреждения</h3>
-      <GoldDivider />
-      <div className="mt-6 grid md:grid-cols-2 gap-4">
-        {[
-          { name: "Концертный зал", desc: "Главная сцена для спектаклей, концертов и торжественных мероприятий" },
-          { name: "Малый зал", desc: "Камерные концерты, лекции и мастер-классы. Академические отделения." },
-          { name: "Танцевальный зал", desc: "Репетиции и показы танцевальных коллективов, новогодние вечера" },
-          { name: "Дискозал", desc: "Развлекательные мероприятия, ярмарки и выставки" },
-        ].map((h, i) => (
-          <div key={i} className="event-card rounded-sm p-4 bg-white/[0.03] flex gap-3">
-            <div className="w-8 h-8 rounded-full bg-red-900/40 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <Icon name="MapPin" size={14} className="text-red-400" />
-            </div>
-            <div>
-              <div className="text-white/85 font-medium text-sm">{h.name}</div>
-              <div className="text-white/40 text-xs mt-0.5">{h.desc}</div>
-            </div>
-          </div>
-        ))}
       </div>
     </div>
   </div>
