@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Icon from "@/components/ui/icon";
+import { EventItem, fetchEvents } from "@/lib/events-api";
 
 const LOGO_URL = "https://cdn.poehali.dev/files/0f446c8c-791b-4f0d-bb88-2afc904bc524.png";
 const QR_URL = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/07ba012d-2388-4be5-8e24-0f4888503674.png";
@@ -10,25 +11,6 @@ const GALLERY_KIDS_DANCE = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-
 const GALLERY_AWARDS = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/4d276450-4260-403f-8966-ae1a08900ade.png";
 
 type Section = "home" | "events" | "about" | "gallery" | "contacts";
-
-// --- DATA ---
-const EVENTS_DEC = [
-  { date: "01 Пн", time: "12:00", title: 'Городская акция «СТОП-СПИД»', place: "г. Сысерть", resp: "Бажова Д.П., Поспелов Д.А.", count: 100, age: "12+", paid: false },
-  { date: "03 Ср", time: "15:00", title: 'Развлекательная программа «Твои добро»', place: "Танцевальный зал", resp: "Сергеева Л.В., Муслынин О.Н.", count: 70, age: "6+", paid: false },
-  { date: "04 Чт", time: "15:00", title: 'Программа «Спешите делать добра»', place: "Танцевальный зал", resp: "Бочкарев А.А., Муслынин М.С.", count: 70, age: "", paid: false },
-  { date: "09 Вт", time: "14:00", title: 'Тематическая программа «Герои моего Отечества»', place: "Малый зал", resp: "Плетнев В.А., Муслынин М.С.", count: 70, age: "6+", paid: false },
-  { date: "11 Чт", time: "18:00", title: 'Генеральная репетиция юбилея Дворца культуры', place: "Концертный зал", resp: "Королева А.В., Муслынин О.Н.", count: 150, age: "", paid: false },
-  { date: "12 Пт", time: "14:00", title: '«Знатоки Конституции»', place: "Малый зал", resp: "Поспелов Д.А., Муслынин О.Н.", count: 70, age: "12+", paid: false },
-  { date: "13 Сб", time: "18:00", title: 'Спектакль «40 причин для аплодисментов»', place: "Концертный зал", resp: "Королева А.В., Муслынин М.С.", count: 500, age: "", paid: true },
-  { date: "17 Ср", time: "15:00", title: 'Праздничная программа «Возьмите счастье в Новый год»', place: "Танцевальный зал", resp: "Сергеева Л.В., Муслынин О.Н.", count: 70, age: "12+", paid: false },
-  { date: "19 Пт", time: "12:00", title: 'Патриотический форум СМО «Закрытие года Героев»', place: "Дискозал, Концертный зал", resp: "Бажова Д.П.", count: 300, age: "6+", paid: false },
-  { date: "20 Сб", time: "19:00", title: 'Новогодний развлекательный вечер «Максидром»', place: "Танцевальный зал", resp: "Бажова Д.П., Муслынин О.Н.", count: 180, age: "18+", paid: true },
-  { date: "21 Вс", time: "18:00", title: 'Спектакль танцевальной студии «Фантези»', place: "Концертный зал", resp: "Муслынин М.С.", count: 250, age: "6+", paid: true },
-  { date: "25 Чт", time: "16:00", title: 'Новогодняя развлекательная программа для детей посёлка', place: "п. Асбест", resp: "Плетнев В.А., Вишвцев С.Л.", count: 35, age: "0+", paid: false },
-  { date: "26 Пт", time: "14:00", title: 'Семейный спектакль «В поисках новогодней Жар-птицы»', place: "Концертный зал, Дискозал", resp: "Королева А.В., Муслынин М.С.", count: 500, age: "0+", paid: true },
-  { date: "27 Сб", time: "18:00", title: 'Семейная интерактивная программа «Новогоднее чудеса»', place: "г. Сысерть, пл. перед Администрацией", resp: "Бажова Д.П., Муслынин М.С.", count: 1000, age: "0+", paid: false },
-  { date: "31 Ср", time: "19:00", title: 'Новогодняя программа «Угощаем Новым годом!»', place: "п. Верхняя Сысерть, ул. площадка", resp: "Бутусова Е.В.", count: 200, age: "6+", paid: false },
-];
 
 // --- COMPONENTS ---
 const GoldDivider = () => (
@@ -53,7 +35,7 @@ const Badge = ({ children, color = "red" }: { children: React.ReactNode; color?:
 };
 
 // --- SECTIONS ---
-const HomeSection = ({ onNavigate }: { onNavigate: (s: Section) => void }) => (
+const HomeSection = ({ onNavigate, events }: { onNavigate: (s: Section) => void; events: EventItem[] }) => (
   <div>
     {/* Hero */}
     <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
@@ -126,7 +108,7 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: Section) => void }) => (
         <GoldDivider />
       </div>
       <div className="grid md:grid-cols-2 gap-3">
-        {(EVENTS_DEC || []).slice(0, 4).map((e, i) => (
+        {(events || []).slice(0, 4).map((e, i) => (
           <div key={i} className={`event-card rounded-sm bg-white/[0.03] flex gap-4 p-4 animate-fade-in-up delay-${(i + 2) * 100}`}>
             <div className="text-center min-w-[60px]">
               <div className="text-yellow-500 font-['Cormorant_Garamond'] text-2xl font-bold leading-none">{e.date.split(" ")[0]}</div>
@@ -156,9 +138,9 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: Section) => void }) => (
   </div>
 );
 
-const EventsSection = () => {
+const EventsSection = ({ events }: { events: EventItem[] }) => {
   const [filter, setFilter] = useState<"all" | "paid" | "free">("all");
-  const filtered = EVENTS_DEC.filter(e =>
+  const filtered = (events || []).filter(e =>
     filter === "all" ? true : filter === "paid" ? e.paid : !e.paid
   );
 
@@ -370,6 +352,13 @@ const SECTIONS: { id: Section; label: string }[] = [
 const Index = () => {
   const [active, setActive] = useState<Section>("home");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [events, setEvents] = useState<EventItem[]>([]);
+
+  useEffect(() => {
+    fetchEvents()
+      .then(setEvents)
+      .catch(() => setEvents([]));
+  }, []);
 
   const navigate = (s: Section) => {
     setActive(s);
@@ -433,10 +422,10 @@ const Index = () => {
       <div className={active === "home" ? "" : "pt-16"}>
         {active === "home" && (
           <div className="pt-16">
-            <HomeSection onNavigate={navigate} />
+            <HomeSection onNavigate={navigate} events={events} />
           </div>
         )}
-        {active === "events" && <EventsSection />}
+        {active === "events" && <EventsSection events={events} />}
         {active === "about" && <AboutSection />}
         {active === "gallery" && <GallerySection />}
         {active === "contacts" && <ContactsSection />}
