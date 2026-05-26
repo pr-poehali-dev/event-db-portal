@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 import {
   EventItem,
@@ -8,6 +9,22 @@ import {
   loginAdmin,
   updateEvent,
 } from "@/lib/events-api";
+
+const MOBILE_BREAKPOINT = 900;
+
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window === "undefined" ? false : window.innerWidth < MOBILE_BREAKPOINT
+  );
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  return isMobile;
+};
 
 const TOKEN_KEY = "admin_token";
 
@@ -336,6 +353,7 @@ const AdminPanel = ({ token, onLogout }: { token: string; onLogout: () => void }
 };
 
 const Admin = () => {
+  const isMobile = useIsMobile();
   const [token, setToken] = useState<string | null>(() => localStorage.getItem(TOKEN_KEY));
 
   const logout = () => {
@@ -343,6 +361,7 @@ const Admin = () => {
     setToken(null);
   };
 
+  if (isMobile) return <Navigate to="/" replace />;
   if (!token) return <LoginScreen onSuccess={setToken} />;
   return <AdminPanel token={token} onLogout={logout} />;
 };
