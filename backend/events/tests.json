@@ -1,0 +1,36 @@
+{
+  "tests": [
+    {
+      "name": "Получить список мероприятий",
+      "method": "GET",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "OPTIONS preflight",
+      "method": "OPTIONS",
+      "path": "/",
+      "expectedStatus": 200
+    },
+    {
+      "name": "Создать без авторизации — отказ",
+      "method": "POST",
+      "path": "/",
+      "body": {"date": "01 Пн", "time": "10:00", "title": "test", "place": "test"},
+      "expectedStatus": 401
+    },
+    {
+      "name": "Обновить без авторизации — отказ",
+      "method": "PUT",
+      "path": "/",
+      "body": {"id": 1, "title": "x"},
+      "expectedStatus": 401
+    },
+    {
+      "name": "Удалить без авторизации — отказ",
+      "method": "DELETE",
+      "path": "/?id=999",
+      "expectedStatus": 401
+    }
+  ]
+}
