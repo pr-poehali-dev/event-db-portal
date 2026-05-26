@@ -6,6 +6,8 @@ const QR_URL = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b
 const HERO_IMG = "https://cdn.poehali.dev/files/8b0bed1e-7037-45e3-aae5-134310dfd1b9.png";
 const HALL_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/8e040385-93b6-48d6-8b8c-8a140ed7a992.png";
 const DANCE_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/files/828b25cc-0d12-47cb-b02c-d45c80adcca7.jpg";
+const GALLERY_KIDS_DANCE = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/f7227cd3-583c-4008-aeef-e72cbc32f1fb.png";
+const GALLERY_AWARDS = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/4d276450-4260-403f-8966-ae1a08900ade.png";
 
 type Section = "home" | "events" | "about" | "gallery" | "contacts";
 
@@ -221,10 +223,18 @@ const EventsSection = () => {
         </table>
       </div>
 
-      <div className="mt-8 p-4 border border-yellow-600/15 rounded-sm bg-yellow-900/5 animate-fade-in-up delay-300">
+      <div className="mt-8 p-4 border border-yellow-600/15 rounded-sm bg-yellow-900/5 animate-fade-in-up delay-300 space-y-2">
         <div className="flex items-center gap-2 text-yellow-500/70 text-sm">
           <Icon name="Info" size={14} />
           <span>Данные из официального календарного плана на декабрь 2025 года.</span>
+        </div>
+        <div className="flex items-start gap-2 text-yellow-500/70 text-sm">
+          <Icon name="Phone" size={14} className="mt-0.5" />
+          <span>
+            Уточнить информацию можно по телефону{" "}
+            <a href="tel:+73437473420" className="text-yellow-300 hover:text-yellow-200 underline">8 (34374) 7-34-20</a>{" "}
+            — Ивченко Анжела Викторовна.
+          </span>
         </div>
       </div>
     </div>
@@ -269,7 +279,7 @@ const GallerySection = () => (
       <GoldDivider />
     </div>
     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-      {[HERO_IMG, HALL_IMG, DANCE_IMG, DANCE_IMG, HERO_IMG, HALL_IMG].map((img, i) => (
+      {[HERO_IMG, HALL_IMG, DANCE_IMG, GALLERY_KIDS_DANCE, GALLERY_AWARDS].map((img, i) => (
         <div key={i} className={`relative overflow-hidden rounded-sm aspect-[4/3] event-card animate-fade-in-up delay-${(i + 1) * 100}`}>
           <img src={img} alt={`Фото ${i + 1}`} className="gallery-img w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
@@ -296,9 +306,9 @@ const ContactsSection = () => (
         <h3 className="font-['Cormorant_Garamond'] text-2xl text-white/80 mb-6">Реквизиты и адрес</h3>
         <div className="space-y-5">
           {[
-            { icon: "MapPin", label: "Адрес", value: "г. Сысерть, Свердловская область" },
+            { icon: "MapPin", label: "Адрес", value: "г. Сысерть, ул. Ленина, 32, Свердловская область" },
             { icon: "Building2", label: "Полное название", value: "МБУК «Дворец культуры имени И.П. Романенко»" },
-            { icon: "Phone", label: "Телефон", value: "Уточнить по запросу" },
+            { icon: "Phone", label: "Телефон", value: "+7 (34374) 7-36-39" },
             { icon: "Clock", label: "Режим работы", value: "Ежедневно, по расписанию мероприятий" },
           ].map((c, i) => (
             <div key={i} className="flex gap-4 items-start">
@@ -332,15 +342,15 @@ const ContactsSection = () => (
         <div className="mt-8">
           <h4 className="text-yellow-600/70 text-xs tracking-[0.3em] uppercase mb-4">Социальные сети</h4>
           <div className="flex gap-3">
-            {[
-              { icon: "Users", label: "ВКонтакте" },
-              { icon: "MessageCircle", label: "Telegram" },
-            ].map((s, i) => (
-              <button key={i} className="flex items-center gap-2 px-4 py-2.5 border border-white/10 hover:border-yellow-600/30 text-white/50 hover:text-yellow-400/70 transition-all text-sm">
-                <Icon name={s.icon} size={14} />
-                {s.label}
-              </button>
-            ))}
+            <a
+              href="https://vk.com/dk_sysert"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2.5 border border-white/10 hover:border-yellow-600/30 text-white/50 hover:text-yellow-400/70 transition-all text-sm"
+            >
+              <Icon name="Users" size={14} />
+              ВКонтакте
+            </a>
           </div>
         </div>
       </div>
