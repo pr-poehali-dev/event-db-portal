@@ -1,8 +1,9 @@
 import { useState } from "react";
 import Icon from "@/components/ui/icon";
 
-const LOGO_URL = "https://cdn.poehali.dev/files/bc0981a3-af0a-4b04-bab8-74649f807df8.png";
-const HERO_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/files/9491702b-5820-4945-a6ca-e1f13adfe62b.jpg";
+const LOGO_URL = "https://cdn.poehali.dev/files/0f446c8c-791b-4f0d-bb88-2afc904bc524.png";
+const QR_URL = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/bucket/07ba012d-2388-4be5-8e24-0f4888503674.png";
+const HERO_IMG = "https://cdn.poehali.dev/files/8b0bed1e-7037-45e3-aae5-134310dfd1b9.png";
 const HALL_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/files/ef961d63-4316-4671-a62e-ae8a8fb754fd.jpg";
 const DANCE_IMG = "https://cdn.poehali.dev/projects/60c580d9-f133-44a9-ae21-c47973b330a2/files/828b25cc-0d12-47cb-b02c-d45c80adcca7.jpg";
 
@@ -53,20 +54,23 @@ const Badge = ({ children, color = "red" }: { children: React.ReactNode; color?:
 const HomeSection = ({ onNavigate }: { onNavigate: (s: Section) => void }) => (
   <div>
     {/* Hero */}
-    <div className="relative h-[70vh] min-h-[500px] overflow-hidden">
-      <img src={HERO_IMG} alt="Дворец культуры" className="w-full h-full object-cover" />
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-[#0f0c0a]" />
+    <div className="relative h-[80vh] min-h-[560px] overflow-hidden">
+      <img src={HERO_IMG} alt="Дворец культуры им. И.П. Романенко" className="w-full h-full object-cover" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/55 to-[#0f0c0a]" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0f0c0a] via-transparent to-transparent" />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
         <div className="animate-fade-in-up">
-          <p className="text-yellow-500/80 text-sm tracking-[0.3em] uppercase mb-3 font-light">МБУК г. Сысерть</p>
-          <h1 className="font-['Cormorant_Garamond'] text-5xl md:text-7xl font-bold text-white leading-tight mb-2">
-            Дворец культуры
-          </h1>
-          <p className="font-['Cormorant_Garamond'] text-2xl md:text-3xl font-light italic text-yellow-400/90 mb-6">
-            имени И.П. Романенко
-          </p>
-          <GoldDivider />
-          <p className="text-white/60 text-sm tracking-widest uppercase mt-4">г. Сысерть, Свердловская область</p>
+          <div className="bg-white rounded-sm p-4 md:p-6 inline-block shadow-2xl shadow-red-900/40">
+            <img
+              src={LOGO_URL}
+              alt="Дворец культуры им. И.П. Романенко, г. Сысерть"
+              className="w-[260px] md:w-[360px] h-auto"
+            />
+          </div>
+          <div className="mt-6">
+            <GoldDivider />
+          </div>
+          <p className="text-white/80 text-sm md:text-base tracking-widest uppercase mt-4">Свердловская область · Официальный сайт</p>
         </div>
         <div className="flex gap-4 mt-8 animate-fade-in-up delay-300">
           <button
@@ -359,9 +363,9 @@ const ContactsSection = () => (
           <div className="corner-br" />
           <div className="p-3 bg-white rounded-sm inline-block">
             <img
-              src="https://cdn.poehali.dev/files/bc0981a3-af0a-4b04-bab8-74649f807df8.png"
-              alt="QR-код"
-              className="w-48 h-auto"
+              src={QR_URL}
+              alt="QR-код сайта ДК им. И.П. Романенко"
+              className="w-52 h-auto"
             />
           </div>
         </div>
@@ -411,17 +415,12 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0f0c0a]/90 backdrop-blur-md border-b border-yellow-600/10">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <button onClick={() => navigate("home")} className="flex items-center gap-3 group">
-            <div className="w-10 h-10 bg-white rounded-sm flex items-center justify-center overflow-hidden p-0.5">
+            <div className="h-12 bg-white rounded-sm flex items-center justify-center px-2 py-1">
               <img
                 src={LOGO_URL}
-                alt="ДК Романенко"
-                className="w-full h-full object-contain"
-                style={{ objectPosition: "left center" }}
+                alt="ДК им. И.П. Романенко"
+                className="h-full w-auto object-contain"
               />
-            </div>
-            <div className="hidden sm:block">
-              <div className="text-white/90 text-xs font-semibold tracking-wide leading-none">ДВОРЕЦ КУЛЬТУРЫ</div>
-              <div className="text-yellow-600/60 text-[10px] tracking-wider">им. И.П. Романенко · г. Сысерть</div>
             </div>
           </button>
 
