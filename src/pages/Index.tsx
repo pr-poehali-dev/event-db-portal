@@ -126,7 +126,7 @@ const HomeSection = ({ onNavigate }: { onNavigate: (s: Section) => void }) => (
         <GoldDivider />
       </div>
       <div className="grid md:grid-cols-2 gap-3">
-        {EVENTS_DEC.slice(0, 4).map((e, i) => (
+        {(EVENTS_DEC || []).slice(0, 4).map((e, i) => (
           <div key={i} className={`event-card rounded-sm bg-white/[0.03] flex gap-4 p-4 animate-fade-in-up delay-${(i + 2) * 100}`}>
             <div className="text-center min-w-[60px]">
               <div className="text-yellow-500 font-['Cormorant_Garamond'] text-2xl font-bold leading-none">{e.date.split(" ")[0]}</div>
